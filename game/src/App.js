@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import gridView from './gridView.js'
 import Board from './Board.js'
-import GameChecker from './GameChecker'
+import GameChecker from './GameChecker.js'
 
 
 class App extends React.Component {
@@ -13,6 +13,8 @@ class App extends React.Component {
     this.state = {
       board : gridView(),
       next : 1,
+      rscore : 0,
+      yscore : 0
     }
   }
 
@@ -23,8 +25,6 @@ class App extends React.Component {
     this.setState({
       board : newBoard,
       next : newNext,
-      rscore : 0,
-      yscore : 0
     })
   }
 
@@ -41,7 +41,7 @@ class App extends React.Component {
                 <h1>Connect Four</h1>
                 <Board board={this.state.board} place={this.place.bind(this)}/>
                 <GameChecker board={this.state.board} reset={this.reset.bind(this)}/>
-                <div className="Scoreboard">Yellow:`${this.state.yscore}`   Red:{this.state.rscore} </div> 
+                <div>Red: {this.state.rscore}  Yellow: {this.state.yscore}</div>
             </div>
          </div>         
     );
