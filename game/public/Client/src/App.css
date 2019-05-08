@@ -1,0 +1,30 @@
+.container {
+    text-align: center;
+}
+
+.box{
+    width: 80px;
+    height: 80px;
+    border : 1px solid black;
+    display : inline-block;
+    text-align: center;
+}
+
+.board{
+    display : inline-flex;
+    flex-wrap : wrap;
+    width : 700px;
+}
+
+.box.dropbox:hover{
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.box.red{
+    background-color: red
+}
+
+.box.yellow{
+    background-color: yellow
+}
