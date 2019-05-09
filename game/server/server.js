@@ -9,12 +9,12 @@ app.use(express.static('../../public'));
 
 
 app.get("/",(req, res) => {
-    console.log('get recieved')
     db.getAll(res);
 });
 
 
 app.post("/",(req, res) => {
+    console.log('POST')
     console.log(req.body.player);
     console.log(req.body.score);
     db.update(req.body.player, req.body.score, res);

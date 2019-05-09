@@ -3,6 +3,8 @@ import './App.css';
 import gridView from './gridView.js'
 import Board from './Board.js'
 import GameChecker from './GameChecker.js'
+import ScoreBoard from './ScoreBoard.js'
+import axios from 'axios';
 
 
 class App extends React.Component {
@@ -13,8 +15,7 @@ class App extends React.Component {
     this.state = {
       board : gridView(),
       next : 1,
-      rscore : 0,
-      yscore : 0
+      status : 'newgame'
     }
   }
 
@@ -28,11 +29,39 @@ class App extends React.Component {
     })
   }
 
+  newScore(winner){
+  let score = (winner === "Red") ? (this.state.rscore + 1) : (this.state.yscore + 1);
+  console.log(winner, score, winner, this.state.rscore)
+  axios.post('http://localhost:3000/', {
+    player : winner,
+    score : score
+  })
+    this.scorecheck();
+  }
+
   reset(){
     this.setState ({
       board : gridView(),
-      next : 1
+      next : 1,
+      status : 'newgame'
     })
+  }
+
+  scorecheck() {
+    if (this.state.status === 'newgame') {
+      axios.get('http://localhost:3000/')
+
+        .then((response) => {
+          this.setState({
+            yscore: response.data[1].score,
+            rscore: response.data[0].score
+          });
+        })
+
+        this.setState ({
+          status : 'inprogress',
+        })
+    }
   }
 
   render () {
@@ -40,8 +69,8 @@ class App extends React.Component {
               <div className="container">
                 <h1>Connect Four</h1>
                 <Board board={this.state.board} place={this.place.bind(this)}/>
-                <GameChecker board={this.state.board} reset={this.reset.bind(this)}/>
-                <div>Red: {this.state.rscore}  Yellow: {this.state.yscore}</div>
+                <GameChecker board={this.state.board} reset={this.reset.bind(this)} newScore={this.newScore.bind(this)}/>
+                <ScoreBoard scorecheck={this.scorecheck.bind(this)} yscore={this.state.yscore} rscore={this.state.rscore}/>
             </div>
          </div>         
     );

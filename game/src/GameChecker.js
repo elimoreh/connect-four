@@ -47,7 +47,8 @@ var GameChecker = function (props){
     
     if(winner){
         winner = (winner === 4) ? "Red" : "Yellow";
-        setTimeout(()=> props.reset(), 2000)
+        props.newScore(winner);
+        setTimeout(()=> props.reset(), 1000)
         return(<div>{`${winner} has won the game!`}</div>);
     }
 
