@@ -1,12 +1,24 @@
 const express = require('express');
-const path = require('path');
 const app = express();
+const parser = require('body-parser');
+const db = require('./controller.js');
+const PORT = 3000
 
-
-
+app.use(parser.json());
 app.use(express.static('../../public'));
 
 
+app.get("/",(req, res) => {
+    console.log('get recieved')
+    db.getAll(res);
+});
 
 
-app.listen(3000, () => console.log("listenting on 3000"));
+app.post("/",(req, res) => {
+    console.log(req.body.player);
+    console.log(req.body.score);
+    db.update(req.body.player, req.body.score, res);
+});
+
+app.listen(PORT, () => console.log("listenting on PORT", PORT));
+
