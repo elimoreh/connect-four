@@ -12,13 +12,13 @@ var BoardCreator = function(props){
         }
     }
 
-    let color = "box"
-    if(p.r === 0){return(<div className="box dropbox" onClick={drop}>Drop</div>)};
-    if(p.board[p.r][p.c] === 1){color = "box red"}
-    if(p.board[p.r][p.c] === 10){color = "box yellow"}
+    let color = "circle"
+    if(p.r === 0){return(<div className="box dropbox" onClick={drop}><p className="textbox">Drop</p></div>)};
+    if(p.board[p.r][p.c] === 1){color = "circle red"}
+    if(p.board[p.r][p.c] === 10){color = "circle yellow"}
 
 
-    return(<div className={color}></div>)
+    return(<div className="box"><div className={color}></div></div>)
 }
 
 
